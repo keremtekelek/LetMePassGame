@@ -1,0 +1,3 @@
+[submodule "Plugins/DialogueSystemPlugin"]
+	path = Plugins/DialogueSystemPlugin
+	url = https://github.com/keremtekelek/DialogueSystemPlus-Plugin
