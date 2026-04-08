@@ -1,7 +1,6 @@
 #include "Actors/InteractableActors/Door.h"
 #include "Components/StaticMeshComponent.h"
-
-
+#include "Subsystems/Subsystem_EventManager.h"
 
 ADoor::ADoor()
 {
@@ -14,6 +13,13 @@ ADoor::ADoor()
 void ADoor::BeginPlay()
 {
 	Super::BeginPlay();
+
+	USubsystem_EventManager* eventManagerptr = Cast<USubsystem_EventManager>(GetWorld()->GetGameInstance());
+
+	if (eventManagerptr)
+	{
+		EventManager_Subsystem = eventManagerptr;
+	}
 	
 	PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 
@@ -124,7 +130,16 @@ void ADoor::HandleFinished()
 void ADoor::InteractionTriggered_Implementation()
 {
 	Super::InteractionTriggered_Implementation();
-	
-	OpenTheDoor();
-	
+
+	if (!RequireToWorkEvents.IsEmpty())
+	{
+		if (EventManager_Subsystem && EventManager_Subsystem->TriggeredEvents.HasAllExact(RequireToWorkEvents))
+		{
+			OpenTheDoor();
+		}
+	}
+	else
+	{
+		OpenTheDoor();
+	}
 }

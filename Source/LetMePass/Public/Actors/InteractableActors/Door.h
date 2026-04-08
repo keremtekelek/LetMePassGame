@@ -8,10 +8,12 @@
 #include "Sound/SoundBase.h"
 #include "Sound/SoundAttenuation.h"
 #include "GameFramework/Character.h"
+#include "GameplayTagContainer.h"
 #include "Door.generated.h"
 
 
 class UStaticMeshComponent;
+class USubsystem_EventManager;
 
 UCLASS()
 class LETMEPASS_API ADoor : public AInteractableActorBase
@@ -28,6 +30,12 @@ protected:
 	
 	//VARIABLES
 public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FGameplayTagContainer RequireToWorkEvents;
+
+	UPROPERTY()
+	USubsystem_EventManager* EventManager_Subsystem;
 	
 	UPROPERTY(VisibleAnywhere)
 	ACharacter* PlayerCharacter;
