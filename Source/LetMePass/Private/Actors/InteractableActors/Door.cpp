@@ -14,7 +14,7 @@ void ADoor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	USubsystem_EventManager* eventManagerptr = Cast<USubsystem_EventManager>(GetWorld()->GetGameInstance());
+	USubsystem_EventManager* eventManagerptr = GetGameInstance()->GetSubsystem<USubsystem_EventManager>();
 
 	if (eventManagerptr)
 	{
@@ -43,6 +43,10 @@ void ADoor::Tick(float DeltaTime)
 	
 	DoorTimeline.TickTimeline(DeltaTime);
 	DotProductResult = CalculateDotProduct();
+
+	IsDoorFree = CalculateIsDoorFree();
+
+	
 }
 
 void ADoor::OpenTheDoor()
@@ -101,6 +105,8 @@ float ADoor::CalculateDotProduct()
 	}
 }
 
+
+
 void ADoor::HandleProgress(float Value)
 {
 	float Rotation = FMath::Lerp(DoorStartFloat, DoorEndFloat, Value);
@@ -127,18 +133,30 @@ void ADoor::HandleFinished()
 }
 
 
-void ADoor::InteractionTriggered_Implementation()
+bool ADoor::CalculateIsDoorFree()
 {
-	Super::InteractionTriggered_Implementation();
-
 	if (!RequireToWorkEvents.IsEmpty())
 	{
 		if (EventManager_Subsystem && EventManager_Subsystem->TriggeredEvents.HasAllExact(RequireToWorkEvents))
 		{
-			OpenTheDoor();
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 	else
+	{
+		return true;
+	}
+}
+
+void ADoor::InteractionTriggered_Implementation()
+{
+	Super::InteractionTriggered_Implementation();
+
+	if (IsDoorFree)
 	{
 		OpenTheDoor();
 	}

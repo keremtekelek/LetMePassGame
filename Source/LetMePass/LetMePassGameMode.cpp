@@ -2,6 +2,7 @@
 
 #include "LetMePassGameMode.h"
 #include "Public/LetMePassCharacter.h"
+#include "ActualPlayerState.h"
 #include "UObject/ConstructorHelpers.h"
 
 ALetMePassGameMode::ALetMePassGameMode()
@@ -12,4 +13,6 @@ ALetMePassGameMode::ALetMePassGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	PlayerStateClass = AActualPlayerState::StaticClass();
 }

@@ -34,6 +34,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGameplayTagContainer RequireToWorkEvents;
 
+	UPROPERTY(VisibleAnywhere)
+	bool IsDoorFree = false;
+
 	UPROPERTY()
 	USubsystem_EventManager* EventManager_Subsystem;
 	
@@ -43,7 +46,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	bool CanInteract = false;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool IsDoorOpen = false;
 
 	UPROPERTY(VisibleAnywhere)
@@ -90,6 +93,9 @@ public:
 
 	UFUNCTION()
 	float CalculateDotProduct();
+
+	UFUNCTION()
+	bool CalculateIsDoorFree();
 
 	UFUNCTION()
 	void HandleProgress(float Value);

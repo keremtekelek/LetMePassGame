@@ -41,6 +41,8 @@ ALetMePassCharacter::ALetMePassCharacter()
 	
 	// Setup Interaction System Actor Component
 	AC_InteractionSystem = CreateDefaultSubobject<UAC_InteractionSystem>(TEXT("Interaction System"));
+
+	this->Tags.Add("MainCharacter");
 	
 }
 
