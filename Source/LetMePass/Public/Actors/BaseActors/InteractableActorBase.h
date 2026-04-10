@@ -8,6 +8,7 @@ class UAC_InteractionSystem;
 class UStaticMeshComponent;
 class USceneComponent;
 
+
 UCLASS()
 class LETMEPASS_API AInteractableActorBase : public AActor
 {
@@ -36,6 +37,8 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	USceneComponent* DefaultSceneRoot;
+
+	
 	
 	// FUNCTIONS!!!
 public:
